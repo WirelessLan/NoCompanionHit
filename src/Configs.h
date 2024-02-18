@@ -8,6 +8,8 @@ namespace Configs {
 	extern bool g_enableIgnoreAllyToAllyProjectileHit;
 	extern bool g_enableIgnoreBeamProjectile;
 	extern bool g_enableIgnoreFlameProjectile;
+	extern bool g_enableIgnoreGrenadeProjectile;
+	extern bool g_enableIgnoreArrowProjectile;
 	extern bool g_enableIgnoreMissileProjectile;
 
 	void ReadINI();

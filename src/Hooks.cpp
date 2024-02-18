@@ -94,6 +94,50 @@ namespace Hooks {
 	};
 
 	template<std::uint64_t id, std::ptrdiff_t diff>
+	class GrenadeProjectile_AddImpactHook {
+	public:
+		static void Install() {
+			REL::Relocation<std::uintptr_t> target(REL::ID(id), diff);
+			func = *(func_t*)(target.get());
+			REL::safe_write(target.get(), (std::uintptr_t)ProcessHook);
+		}
+	private:
+		using func_t = std::uint32_t(*)(RE::Projectile&, const ImpactCreation&);
+
+		static std::uint32_t ProcessHook(RE::Projectile& a_projectile, const ImpactCreation& a_impactCreation) {
+			if (Configs::g_enabled && Configs::g_enableIgnoreGrenadeProjectile) {
+				if (IgnoreProjectile(a_projectile, a_impactCreation.impactTarget))
+					return static_cast<std::uint32_t>(-1);
+			}
+			return func(a_projectile, a_impactCreation);
+		}
+
+		inline static func_t func;
+	};
+
+	template<std::uint64_t id, std::ptrdiff_t diff>
+	class ArrowProjectile_AddImpactHook {
+	public:
+		static void Install() {
+			REL::Relocation<std::uintptr_t> target(REL::ID(id), diff);
+			func = *(func_t*)(target.get());
+			REL::safe_write(target.get(), (std::uintptr_t)ProcessHook);
+		}
+	private:
+		using func_t = std::uint32_t(*)(RE::Projectile&, const ImpactCreation&);
+
+		static std::uint32_t ProcessHook(RE::Projectile& a_projectile, const ImpactCreation& a_impactCreation) {
+			if (Configs::g_enabled && Configs::g_enableIgnoreArrowProjectile) {
+				if (IgnoreProjectile(a_projectile, a_impactCreation.impactTarget))
+					return static_cast<std::uint32_t>(-1);
+			}
+			return func(a_projectile, a_impactCreation);
+		}
+
+		inline static func_t func;
+	};
+
+	template<std::uint64_t id, std::ptrdiff_t diff>
 	class MissileProjectile_HandleHitsHook {
 	public:
 		static void Install() {
@@ -150,6 +194,8 @@ namespace Hooks {
 	void Install() {
 		BeamProjectile_AddImpactHook<700255, 0x720>::Install();
 		FlameProjectile_AddImpactHook<407784, 0x720>::Install();
+		GrenadeProjectile_AddImpactHook<17672, 0x720>::Install();
+		ArrowProjectile_AddImpactHook<1479747, 0x720>::Install();
 		MissileProjectile_HandleHitsHook<1432029, 0x728>::Install();
 	}
 }

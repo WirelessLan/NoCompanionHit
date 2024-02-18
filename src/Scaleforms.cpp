@@ -23,6 +23,10 @@ namespace Scaleforms {
 				Configs::g_enableIgnoreBeamProjectile = a_params.args[1].GetBoolean();
 			else if (strcmp(a_params.args[0].GetString(), "bEnableIgnoreFlameProjectile") == 0)
 				Configs::g_enableIgnoreFlameProjectile = a_params.args[1].GetBoolean();
+			else if (strcmp(a_params.args[0].GetString(), "bEnableIgnoreGrenadeProjectile") == 0)
+				Configs::g_enableIgnoreGrenadeProjectile = a_params.args[1].GetBoolean();
+			else if (strcmp(a_params.args[0].GetString(), "bEnableIgnoreArrowProjectile") == 0)
+				Configs::g_enableIgnoreArrowProjectile = a_params.args[1].GetBoolean();
 			else if (strcmp(a_params.args[0].GetString(), "bEnableIgnoreMissileProjectile") == 0)
 				Configs::g_enableIgnoreMissileProjectile = a_params.args[1].GetBoolean();
 		}

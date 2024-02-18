@@ -11,6 +11,8 @@ namespace Configs {
 
 	bool g_enableIgnoreBeamProjectile = true;
 	bool g_enableIgnoreFlameProjectile = true;
+	bool g_enableIgnoreGrenadeProjectile = true;
+	bool g_enableIgnoreArrowProjectile = true;
 	bool g_enableIgnoreMissileProjectile = true;
 
 	std::string GetINIOption(const char* section, const char* key) {
@@ -87,6 +89,24 @@ namespace Configs {
 			catch (...) {}
 		}
 		logger::info(FMT_STRING("bEnableIgnoreFlameProjectile: {}"), g_enableIgnoreFlameProjectile);
+
+		value = GetINIOption("Settings", "bEnableIgnoreGrenadeProjectile");
+		if (!value.empty()) {
+			try {
+				g_enableIgnoreGrenadeProjectile = std::stoul(value);
+			}
+			catch (...) {}
+		}
+		logger::info(FMT_STRING("bEnableIgnoreGrenadeProjectile: {}"), g_enableIgnoreGrenadeProjectile);
+
+		value = GetINIOption("Settings", "bEnableIgnoreArrowProjectile");
+		if (!value.empty()) {
+			try {
+				g_enableIgnoreArrowProjectile = std::stoul(value);
+			}
+			catch (...) {}
+		}
+		logger::info(FMT_STRING("bEnableIgnoreArrowProjectile: {}"), g_enableIgnoreArrowProjectile);
 
 		value = GetINIOption("Settings", "bEnableIgnoreMissileProjectile");
 		if (!value.empty()) {
